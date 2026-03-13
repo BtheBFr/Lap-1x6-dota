@@ -1,6 +1,6 @@
 // Состояние приложения
 let state = {
-    token: null,
+    token: localStorage.getItem('lap1x6_token'),
     user: null,
     settings: {},
     favorites: [],
@@ -39,7 +39,11 @@ async function callAPI(params) {
         const url = new URL(CONFIG.API_URL);
         Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
         
-        const res = await fetch(url, { method: 'GET', mode: 'cors' });
+        const res = await fetch(url, { 
+            method: 'GET', 
+            mode: 'cors',
+            cache: 'no-cache'
+        });
         return await res.json();
     } catch (error) {
         console.error('API Error:', error);
@@ -62,23 +66,42 @@ async function postAPI(data) {
     }
 }
 
-// Загрузка героев
-async function loadHeroes() {
-    try {
-        let heroes = cache.get('heroes');
-        if (heroes) {
-            state.heroes = heroes;
-            renderHeroes();
+// Автоматический вход если есть токен
+async function autoLogin() {
+    if (state.token) {
+        const device = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ? 'mobile' : 'desktop';
+        
+        let userData = cache.get(`user_${state.token}`);
+        if (userData) {
+            state.user = userData.user;
+            state.settings = userData.settings || CONFIG.DEFAULT_BINDS;
+            state.favorites = userData.favorites || [];
+            showScreen('main-screen');
+            if (state.user.role === 'admin') document.getElementById('admin-btn').style.display = 'inline-block';
+            loadHeroes();
             return;
         }
         
-        const res = await fetch(CONFIG.GITHUB_URL + 'heroes.json');
-        heroes = await res.json();
-        state.heroes = heroes.heroes;
-        cache.set('heroes', state.heroes, 168);
-        renderHeroes();
-    } catch (error) {
-        console.error('Heroes load error:', error);
+        const res = await callAPI({ token: state.token, device });
+        if (res.success) {
+            state.user = res.user;
+            state.settings = res.settings || CONFIG.DEFAULT_BINDS;
+            state.favorites = res.favorites || [];
+            
+            cache.set(`user_${state.token}`, {
+                user: res.user,
+                settings: res.settings,
+                favorites: res.favorites
+            }, 24);
+            
+            showScreen('main-screen');
+            if (res.user.role === 'admin') document.getElementById('admin-btn').style.display = 'inline-block';
+            loadHeroes();
+        } else {
+            // Токен недействителен
+            state.token = null;
+            localStorage.removeItem('lap1x6_token');
+        }
     }
 }
 
@@ -95,6 +118,9 @@ async function login() {
         state.user = userData.user;
         state.settings = userData.settings || CONFIG.DEFAULT_BINDS;
         state.favorites = userData.favorites || [];
+        
+        localStorage.setItem('lap1x6_token', token);
+        
         showScreen('main-screen');
         if (state.user.role === 'admin') document.getElementById('admin-btn').style.display = 'inline-block';
         loadHeroes();
@@ -108,6 +134,8 @@ async function login() {
         state.settings = res.settings || CONFIG.DEFAULT_BINDS;
         state.favorites = res.favorites || [];
         
+        localStorage.setItem('lap1x6_token', token);
+        
         cache.set(`user_${token}`, {
             user: res.user,
             settings: res.settings,
@@ -120,6 +148,100 @@ async function login() {
     } else {
         document.getElementById('auth-error').textContent = 'Неверный токен';
     }
+}
+
+// Загрузка героев
+async function loadHeroes() {
+    try {
+        let heroes = cache.get('heroes');
+        if (heroes) {
+            state.heroes = heroes;
+            renderHeroes();
+            return;
+        }
+        
+        const res = await fetch(CONFIG.GITHUB_URL + 'heroes.json?t=' + Date.now());
+        heroes = await res.json();
+        state.heroes = heroes.heroes;
+        cache.set('heroes', state.heroes, 168);
+        renderHeroes();
+    } catch (error) {
+        console.error('Heroes load error:', error);
+    }
+}
+
+// Рендер героев
+function renderHeroes() {
+    const grid = document.getElementById('heroes-grid');
+    const search = document.getElementById('search-input')?.value.toLowerCase() || '';
+    
+    let heroes = state.heroes;
+    if (search) {
+        heroes = heroes.filter(h => 
+            h.name.toLowerCase().includes(search) || 
+            h.id.toLowerCase().includes(search)
+        );
+    }
+    
+    if (!heroes.length) {
+        grid.innerHTML = '<div class="no-results">Ничего не найдено</div>';
+        return;
+    }
+    
+    grid.innerHTML = heroes.map(hero => `
+        <div class="hero-card ${state.favorites.includes(hero.id) ? 'favorite' : ''}" onclick="selectHero('${hero.id}')">
+            <img src="${CONFIG.GITHUB_URL + hero.image}" alt="${hero.name}" loading="lazy" onerror="this.src='https://via.placeholder.com/100/141619/9f7aea?text=?'">
+            <h4>${hero.name}</h4>
+        </div>
+    `).join('');
+}
+
+// Выбор героя
+function selectHero(heroId) {
+    state.currentHero = state.heroes.find(h => h.id === heroId);
+    document.getElementById('hero-name').textContent = state.currentHero.name;
+    
+    const isFav = state.favorites.includes(heroId);
+    document.getElementById('hero-favorite').textContent = isFav ? '⭐' : '☆';
+    
+    renderSkills();
+    showScreen('hero-screen');
+    window.scrollTo(0, 0);
+}
+
+// Рендер способностей
+function renderSkills() {
+    const container = document.getElementById('skills-container');
+    const hero = state.currentHero;
+    
+    container.innerHTML = hero.skills.map(skill => `
+        <div class="skill-card" onclick="selectSkill('${skill.key}')">
+            <img src="${CONFIG.GITHUB_URL + skill.icon}" alt="${skill.name}" onerror="this.src='https://via.placeholder.com/64/141619/9f7aea?text=?'">
+            <div class="skill-info">
+                <h4>${skill.name}</h4>
+                <p>${skill.description}</p>
+                <span class="skill-key">${state.settings[skill.key] || skill.key}</span>
+            </div>
+        </div>
+    `).join('');
+}
+
+// Выбор способности
+function selectSkill(skillKey) {
+    state.currentSkill = state.currentHero.skills.find(s => s.key === skillKey);
+    document.getElementById('build-title').textContent = `${state.currentHero.name} - ${state.currentSkill.name}`;
+    document.getElementById('build-image').src = CONFIG.GITHUB_URL + state.currentSkill.build;
+    showScreen('build-screen');
+    window.scrollTo(0, 0);
+}
+
+// Переключение экранов
+function showScreen(screenId) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById(screenId).classList.add('active');
+    
+    // Сброс скролла
+    document.getElementById('app').scrollTop = 0;
 }
 
 // Сохранение настроек
@@ -169,7 +291,38 @@ async function toggleFavorite(heroId) {
     });
     
     renderHeroes();
-    if (state.currentHero) renderSkills();
+    if (state.currentHero) {
+        const isFav = state.favorites.includes(state.currentHero.id);
+        document.getElementById('hero-favorite').textContent = isFav ? '⭐' : '☆';
+    }
+}
+
+// Загрузка избранного
+function loadFavorites() {
+    const favGrid = document.getElementById('favorites-grid');
+    const favHeroes = state.heroes.filter(h => state.favorites.includes(h.id));
+    
+    if (!favHeroes.length) {
+        favGrid.innerHTML = '<div class="no-results">Нет избранных героев</div>';
+    } else {
+        favGrid.innerHTML = favHeroes.map(hero => `
+            <div class="hero-card" onclick="selectHero('${hero.id}')">
+                <img src="${CONFIG.GITHUB_URL + hero.image}" alt="${hero.name}">
+                <h4>${hero.name}</h4>
+            </div>
+        `).join('');
+    }
+    
+    showScreen('favorites-screen');
+    window.scrollTo(0, 0);
+}
+
+// Скачать сборку
+function downloadBuild() {
+    const link = document.createElement('a');
+    link.href = document.getElementById('build-image').src;
+    link.download = `build_${state.currentHero.id}_${state.currentSkill.key}.jpg`;
+    link.click();
 }
 
 // Отправка в поддержку
@@ -181,98 +334,28 @@ async function sendSupport(data) {
         ...data
     });
     
+    // Скрываем форму
+    document.getElementById('custom-message-container').style.display = 'none';
+    document.getElementById('custom-message').value = '';
+    document.getElementById('missing-hero').value = '';
+    document.getElementById('missing-skill').value = '';
+    
     showScreen('main-screen');
 }
 
-// Рендер героев
-function renderHeroes() {
-    const grid = document.getElementById('heroes-grid');
-    const search = document.getElementById('search-input')?.value.toLowerCase() || '';
-    
-    let heroes = state.heroes;
-    if (search) {
-        heroes = heroes.filter(h => 
-            h.name.toLowerCase().includes(search) || 
-            h.id.toLowerCase().includes(search)
-        );
-    }
-    
-    grid.innerHTML = heroes.map(hero => `
-        <div class="hero-card ${state.favorites.includes(hero.id) ? 'favorite' : ''}" onclick="selectHero('${hero.id}')">
-            <img src="${CONFIG.GITHUB_URL + hero.image}" alt="${hero.name}" loading="lazy">
-            <h4>${hero.name}</h4>
-        </div>
-    `).join('');
-}
-
-// Выбор героя
-function selectHero(heroId) {
-    state.currentHero = state.heroes.find(h => h.id === heroId);
-    document.getElementById('hero-name').textContent = state.currentHero.name;
-    
-    const isFav = state.favorites.includes(heroId);
-    document.getElementById('hero-favorite').textContent = isFav ? '⭐' : '☆';
-    
-    renderSkills();
-    showScreen('hero-screen');
-}
-
-// Рендер способностей
-function renderSkills() {
-    const container = document.getElementById('skills-container');
-    const hero = state.currentHero;
-    
-    container.innerHTML = hero.skills.map(skill => `
-        <div class="skill-card" onclick="selectSkill('${skill.key}')">
-            <img src="${CONFIG.GITHUB_URL + skill.icon}" alt="${skill.name}">
-            <div class="skill-info">
-                <h4>${skill.name}</h4>
-                <p>${skill.description}</p>
-                <span class="skill-key">${state.settings[skill.key] || skill.key}</span>
-            </div>
-        </div>
-    `).join('');
-}
-
-// Выбор способности
-function selectSkill(skillKey) {
-    state.currentSkill = state.currentHero.skills.find(s => s.key === skillKey);
-    document.getElementById('build-title').textContent = `${state.currentHero.name} - ${state.currentSkill.name}`;
-    document.getElementById('build-image').src = CONFIG.GITHUB_URL + state.currentSkill.build;
-    showScreen('build-screen');
-}
-
-// Переключение экранов
-function showScreen(screenId) {
-    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-    document.getElementById(screenId).classList.add('active');
-}
-
-// Загрузка избранного
-function loadFavorites() {
-    const favGrid = document.getElementById('favorites-grid');
-    const favHeroes = state.heroes.filter(h => state.favorites.includes(h.id));
-    
-    favGrid.innerHTML = favHeroes.map(hero => `
-        <div class="hero-card" onclick="selectHero('${hero.id}')">
-            <img src="${CONFIG.GITHUB_URL + hero.image}" alt="${hero.name}">
-            <h4>${hero.name}</h4>
-        </div>
-    `).join('');
-    
-    showScreen('favorites-screen');
-}
-
-// Скачать сборку
-function downloadBuild() {
-    const link = document.createElement('a');
-    link.href = document.getElementById('build-image').src;
-    link.download = `build_${state.currentHero.id}_${state.currentSkill.key}.jpg`;
-    link.click();
+// Выход (для тестирования)
+function logout() {
+    state.token = null;
+    state.user = null;
+    localStorage.removeItem('lap1x6_token');
+    showScreen('auth-screen');
 }
 
 // Инициализация
 document.addEventListener('DOMContentLoaded', () => {
+    // Автовход
+    autoLogin();
+    
     // Авторизация
     document.getElementById('login-btn').addEventListener('click', login);
     document.getElementById('token-input').addEventListener('keypress', (e) => {
@@ -297,6 +380,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('bind-f').value = state.settings.F || 'F';
         document.getElementById('bind-r').value = state.settings.R || 'R';
         showScreen('settings-screen');
+        window.scrollTo(0, 0);
     });
     
     document.getElementById('save-settings').addEventListener('click', saveSettings);
@@ -308,7 +392,11 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('search-input').addEventListener('input', renderHeroes);
     
     // Поддержка
-    document.getElementById('support-btn').addEventListener('click', () => showScreen('support-screen'));
+    document.getElementById('support-btn').addEventListener('click', () => {
+        showScreen('support-screen');
+        window.scrollTo(0, 0);
+    });
+    
     document.getElementById('no-hero-btn').addEventListener('click', () => {
         document.getElementById('hero-selector').style.display = 'block';
         document.getElementById('skill-selector').style.display = 'none';
@@ -387,6 +475,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         
         showScreen('admin-screen');
+        window.scrollTo(0, 0);
     });
     
     // Табы в админке
@@ -399,12 +488,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
     
-    // Обработка ошибок изображений
-    document.addEventListener('error', (e) => {
-        if (e.target.tagName === 'IMG') {
-            e.target.src = 'https://via.placeholder.com/128/141619/9f7aea?text=404';
-        }
-    }, true);
+    // Для отладки - закомментируй в продакшене
+    // window.logout = logout;
 });
 
 // Глобальные функции для onclick
