@@ -16,22 +16,31 @@ html, body {
 #app {
     height: 100%;
     width: 100%;
+    position: relative;
+    background: #0a0b0e;
+}
+
+/* ВСЕ ЭКРАНЫ - ПОЛНОСТЬЮ СКРЫТЫ ПОКА НЕ АКТИВНЫ */
+.screen {
+    display: none;
+    height: 100%;
+    width: 100%;
     overflow-y: auto;
     overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
     background: #0a0b0e;
-}
-
-/* ЭКРАН АВТОРИЗАЦИИ - СТРОГО ПО ЦЕНТРУ */
-#auth-screen {
-    display: none;
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
-    right: 0;
-    bottom: 0;
+}
+
+.screen.active {
+    display: block;
+}
+
+/* ЭКРАН АВТОРИЗАЦИИ - ПО ЦЕНТРУ */
+#auth-screen {
     background: #0a0b0e;
-    z-index: 1000;
 }
 
 #auth-screen.active {
@@ -43,9 +52,8 @@ html, body {
 .auth-center {
     width: 100%;
     padding: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    max-width: 440px;
+    margin: 0 auto;
 }
 
 .auth-container {
@@ -53,39 +61,152 @@ html, body {
     padding: 40px 24px;
     border-radius: 32px;
     width: 100%;
-    max-width: 400px;
     text-align: center;
     animation: scaleIn 0.4s ease;
     box-shadow: 0 20px 40px rgba(0,0,0,0.5);
 }
 
-/* ГЛАВНЫЙ ЭКРАН */
-#main-screen {
-    display: none;
-    min-height: 100%;
-    background: #0a0b0e;
+/* КНОПКА ВЫХОДА */
+.logout-btn {
+    color: #ff6b6b;
 }
 
-#main-screen.active {
+.logout-btn:hover {
+    background: #ff6b6b;
+    color: white;
+}
+
+/* Остальные стили как в предыдущей версии */
+.logo h1 {
+    font-size: 32px;
+    font-weight: 600;
+    margin-bottom: 4px;
+    background: linear-gradient(135deg, #9f7aea, #667eea);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.logo p {
+    color: #666c7a;
+    font-size: 14px;
+    margin-bottom: 32px;
+}
+
+.bot-link {
+    text-decoration: none;
     display: block;
+    margin-bottom: 20px;
 }
 
-.main-content {
+.bot-button {
+    background: linear-gradient(135deg, #0088cc, #00a2ff);
+    border-radius: 30px;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: all 0.3s ease;
+}
+
+.bot-icon {
+    font-size: 28px;
+    background: rgba(255, 255, 255, 0.2);
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 24px;
+}
+
+.bot-text {
+    flex: 1;
+    font-size: 16px;
+    font-weight: 500;
+    color: white;
+}
+
+.bot-arrow {
+    font-size: 20px;
+    color: white;
+}
+
+.auth-divider {
+    text-align: center;
+    margin: 20px 0;
+    position: relative;
+    color: #666c7a;
+    font-size: 14px;
+}
+
+.auth-divider::before,
+.auth-divider::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: calc(50% - 30px);
+    height: 1px;
+    background: #2a2d35;
+}
+
+.auth-divider::before {
+    left: 0;
+}
+
+.auth-divider::after {
+    right: 0;
+}
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+#token-input {
+    width: 100%;
+    padding: 16px;
+    background: #1e2025;
+    border: 1px solid #2a2d35;
+    border-radius: 30px;
+    color: white;
+    font-size: 16px;
+    text-align: center;
+}
+
+#token-input:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+.primary-btn {
+    width: 100%;
+    padding: 16px;
+    background: linear-gradient(135deg, #9f7aea, #667eea);
+    border: none;
+    border-radius: 30px;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.error-message {
+    color: #ff4a4a;
+    font-size: 14px;
+    min-height: 20px;
+    text-align: center;
+}
+
+/* КОНТЕНТ НА ЭКРАНАХ */
+.main-content, .content {
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px 16px 100px 16px;
-    min-height: 100vh;
+    min-height: 100%;
 }
 
-/* Контент для других экранов */
-.content {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px 16px 100px 16px;
-    min-height: 100vh;
-}
-
-/* Шапка */
 header {
     display: flex;
     justify-content: space-between;
@@ -139,133 +260,6 @@ header h3 {
     padding: 8px;
 }
 
-/* Логотип */
-.logo h1 {
-    font-size: 32px;
-    font-weight: 600;
-    margin-bottom: 4px;
-    background: linear-gradient(135deg, #9f7aea, #667eea);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-.logo p {
-    color: #666c7a;
-    font-size: 14px;
-    margin-bottom: 32px;
-}
-
-/* Кнопка бота */
-.bot-link {
-    text-decoration: none;
-    display: block;
-    margin-bottom: 20px;
-}
-
-.bot-button {
-    background: linear-gradient(135deg, #0088cc, #00a2ff);
-    border-radius: 30px;
-    padding: 16px 20px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    transition: all 0.3s ease;
-}
-
-.bot-icon {
-    font-size: 28px;
-    background: rgba(255, 255, 255, 0.2);
-    width: 48px;
-    height: 48px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 24px;
-}
-
-.bot-text {
-    flex: 1;
-    font-size: 16px;
-    font-weight: 500;
-    color: white;
-}
-
-.bot-arrow {
-    font-size: 20px;
-    color: white;
-}
-
-/* Разделитель */
-.auth-divider {
-    text-align: center;
-    margin: 20px 0;
-    position: relative;
-    color: #666c7a;
-    font-size: 14px;
-}
-
-.auth-divider::before,
-.auth-divider::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    width: calc(50% - 30px);
-    height: 1px;
-    background: #2a2d35;
-}
-
-.auth-divider::before {
-    left: 0;
-}
-
-.auth-divider::after {
-    right: 0;
-}
-
-/* Форма авторизации */
-.auth-form {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
-
-#token-input {
-    width: 100%;
-    padding: 16px;
-    background: #1e2025;
-    border: 1px solid #2a2d35;
-    border-radius: 30px;
-    color: white;
-    font-size: 16px;
-    text-align: center;
-}
-
-#token-input:focus {
-    outline: none;
-    border-color: #667eea;
-}
-
-.primary-btn {
-    width: 100%;
-    padding: 16px;
-    background: linear-gradient(135deg, #9f7aea, #667eea);
-    border: none;
-    border-radius: 30px;
-    color: white;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s;
-}
-
-.error-message {
-    color: #ff4a4a;
-    font-size: 14px;
-    min-height: 20px;
-    text-align: center;
-}
-
-/* Поиск */
 .search-container {
     margin-bottom: 24px;
 }
@@ -280,7 +274,6 @@ header h3 {
     font-size: 16px;
 }
 
-/* Сетка героев */
 .heroes-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
@@ -321,7 +314,6 @@ header h3 {
     border-color: #fbbf24;
 }
 
-/* Способности */
 .skills-container {
     display: flex;
     flex-direction: column;
@@ -379,7 +371,6 @@ header h3 {
     margin-top: 8px;
 }
 
-/* Сборка */
 .build-image-container {
     text-align: center;
 }
@@ -391,7 +382,6 @@ header h3 {
     box-shadow: 0 20px 40px rgba(0,0,0,0.5);
 }
 
-/* Кнопка поддержки снизу - ВСЕГДА ПО ЦЕНТРУ */
 .support-btn-bottom {
     position: fixed;
     bottom: 20px;
@@ -411,7 +401,6 @@ header h3 {
     max-width: 90%;
 }
 
-/* Настройки */
 .settings-container {
     background: #141619;
     border-radius: 32px;
@@ -447,7 +436,6 @@ header h3 {
     min-width: 80px;
 }
 
-/* Поддержка */
 .support-container {
     background: #141619;
     border-radius: 32px;
@@ -467,40 +455,6 @@ header h3 {
     margin-bottom: 12px;
 }
 
-.support-option:hover {
-    background: #2a2d35;
-    border-color: #9f7aea;
-}
-
-#custom-message-container {
-    margin-top: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
-
-#custom-message {
-    width: 100%;
-    padding: 16px;
-    background: #1e2025;
-    border: 1px solid #2a2d35;
-    border-radius: 24px;
-    color: white;
-    font-size: 16px;
-    resize: vertical;
-}
-
-#missing-hero, #missing-skill {
-    width: 100%;
-    padding: 14px;
-    background: #1e2025;
-    border: 1px solid #2a2d35;
-    border-radius: 24px;
-    color: white;
-    font-size: 16px;
-}
-
-/* Админ-панель */
 .admin-tabs {
     display: flex;
     gap: 8px;
@@ -559,7 +513,11 @@ header h3 {
     color: #a0a8b8;
 }
 
-/* Адаптация */
+@keyframes scaleIn {
+    from { transform: scale(0.95); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
 @media (max-width: 768px) {
     .heroes-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -580,44 +538,12 @@ header h3 {
         width: 80px;
         height: 80px;
     }
-    
-    .setting-item {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-    
-    .setting-item select {
-        width: 100%;
-    }
 }
 
 @media (max-width: 480px) {
-    .heroes-grid {
-        gap: 8px;
-    }
-    
-    .hero-card {
-        padding: 12px 4px;
-    }
-    
-    .hero-card img {
-        width: 60px;
-        height: 60px;
-    }
-    
     .support-btn-bottom {
         width: calc(100% - 32px);
         padding: 14px 20px;
         font-size: 14px;
     }
-    
-    .admin-tabs {
-        flex-direction: column;
-    }
-}
-
-/* Анимации */
-@keyframes scaleIn {
-    from { transform: scale(0.95); opacity: 0; }
-    to { transform: scale(1); opacity: 1; }
 }
