@@ -82,6 +82,6 @@ const siteConfig = {
                     build: "icons/builds/enigma/enigma_black_hole.jpg"
                 }
             }
-        },
+        }
     }
 };
