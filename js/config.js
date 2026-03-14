@@ -11,18 +11,20 @@ const siteConfig = {
     // ГЕРОИ - добавляйте новых сюда
     // ============================================
     heroes: {
-        "luna": {                          // название папки с файлами
-            name: "Luna",                   // английское имя
-            nameRu: "Луна",                  // русское имя (для поиска)
-            icon: "icons/heroes/luna.png",   // путь к иконке героя (100x100)
+        // -------------------------------------------------
+        // LUNA
+        // -------------------------------------------------
+        "luna": {
+            name: "Luna",
+            nameRu: "Луна",
+            icon: "icons/heroes/luna.png",
             
-            // Скиллы героя (q,w,e,r,d,f)
             skills: {
-                "q": {                       // клавиша Q
-                    name: "Lucent Beam",      // название скилла
-                    icon: "icons/skills/luna/lucent_beam.png",  // иконка скилла (64x64)
+                "q": {
+                    name: "Lucent Beam",
+                    icon: "icons/skills/luna/lucent_beam.png",
                     description: "Наносит магический урон одной цели. Можно улучшить талантом на перезарядку.",
-                    build: "builds/luna/lucent_beam.jpg"        // скриншот сборки (любой размер)
+                    build: "builds/luna/lucent_beam.jpg"
                 },
                 "w": {
                     name: "Moon Glaive",
@@ -57,6 +59,9 @@ const siteConfig = {
             }
         },
         
+        // -------------------------------------------------
+        // PUDGE
+        // -------------------------------------------------
         "pudge": {
             name: "Pudge",
             nameRu: "Пудж",
@@ -89,49 +94,39 @@ const siteConfig = {
                 }
             }
         },
-
-        "zeus": {                          // название папки с файлами
-            name: "Zeus",                   // английское имя
-            nameRu: "Зевс",                  // русское имя (для поиска)
-            icon: "icons/heroes/zeus.png",   // путь к иконке героя (100x100)
+        
+        // -------------------------------------------------
+        // ZEUS (ДОБАВЛЕН ПРАВИЛЬНО)
+        // -------------------------------------------------
+        "zeus": {
+            name: "Zeus",
+            nameRu: "Зевс",
+            icon: "icons/heroes/zeus.png",
             
-            // Скиллы героя (q,w,e,r,d,f)
             skills: {
-                "q": {                       // клавиша Q
-                    name: "Lucent Beam",      // название скилла
-                    icon: "icons/skills/luna/lucent_beam.png",  // иконка скилла (64x64)
-                    description: "Наносит магический урон одной цели. Можно улучшить талантом на перезарядку.",
-                    build: "builds/luna/lucent_beam.jpg"        // скриншот сборки (любой размер)
+                "q": {
+                    name: "Arc Lightning",
+                    icon: "icons/skills/zeus/arc_lightning.png",
+                    description: "Молния прыгает по врагам. Хорошо для фарма.",
+                    build: "builds/zeus/arc_lightning.jpg"
                 },
                 "w": {
-                    name: "Moon Glaive",
-                    icon: "icons/skills/luna/moon_glaive.png",
-                    description: "Атаки перескакивают на ближайших врагов. С каждым прыжком урон снижается.",
-                    build: "builds/luna/moon_glaive.jpg"
+                    name: "Lightning Bolt",
+                    icon: "icons/skills/zeus/lightning_bolt.png",
+                    description: "Бьет молнией по врагу. Дает обзор цели.",
+                    build: "builds/zeus/lightning_bolt.jpg"
                 },
                 "e": {
-                    name: "Lunar Blessing",
-                    icon: "icons/skills/luna/lunar_blessing.png",
-                    description: "Пассивно увеличивает урон союзникам. Дает бонус к дальности атаки ночью.",
-                    build: "builds/luna/lunar_blessing.jpg"
+                    name: "Static Field",
+                    icon: "icons/skills/zeus/static_field.png",
+                    description: "Пассивно бьет молнией врагов рядом когда используете скиллы.",
+                    build: "builds/zeus/static_field.jpg"
                 },
                 "r": {
-                    name: "Eclipse",
-                    icon: "icons/skills/luna/eclipse.png",
-                    description: "Призывает лунные лучи, которые бьют по врагам вокруг. Длится несколько секунд.",
-                    build: "builds/luna/eclipse.jpg"
-                },
-                "d": {
-                    name: "Dragon Lance",
-                    icon: "icons/skills/luna/dragon_lance.png",
-                    description: "Увеличивает дальность атаки и дает характеристики.",
-                    build: "builds/luna/dragon_lance.jpg"
-                },
-                "f": {
-                    name: "Butterfly",
-                    icon: "icons/skills/luna/butterfly.png",
-                    description: "Дает уклонение, скорость атаки и ловкость.",
-                    build: "builds/luna/butterfly.jpg"
+                    name: "Thundergod's Wrath",
+                    icon: "icons/skills/zeus/thundergod_wrath.png",
+                    description: "Бьет молнией всех врагов на карте.",
+                    build: "builds/zeus/thundergod_wrath.jpg"
                 }
             }
         }
