@@ -138,7 +138,7 @@ const siteConfig = {
                 "q": {
                     name: "Enfeeble",
                     icon: "icons/skills/bane/enfeeble.png",
-                    description: "",
+                    description: "Снижает урон от атак и скорость передвижения цели. Также наносит чистый урон, который не может снять сон Nightmare. Срабатывание на противников в радиусе 300 от основной цели.",
                     build: "icons/builds/bane/bane_enfeeble.jpg"
                 },
                 "w": {
