@@ -995,6 +995,58 @@ body {
     gap: 15px;
 }
 
+/* ===== КАРТОЧКИ ГЕРОЕВ (ИСПРАВЛЕННЫЕ) ===== */
+.hero-card {
+    background: var(--bg-secondary);
+    border-radius: var(--border-radius);
+    padding: 15px 10px;
+    text-align: center;
+    cursor: pointer;
+    transition: var(--transition);
+    border: 2px solid transparent;
+    width: 100%;
+    max-width: 150px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+}
+
+.hero-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--accent);
+    box-shadow: 0 10px 20px rgba(255, 77, 77, 0.3);
+    background: var(--bg-tertiary);
+}
+
+.hero-icon {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    margin: 0 auto 10px;
+    object-fit: cover;
+    border: 3px solid var(--bg-tertiary);
+    transition: var(--transition);
+    display: block;
+}
+
+.hero-card:hover .hero-icon {
+    border-color: var(--accent);
+    transform: scale(1.05);
+}
+
+.hero-name {
+    font-size: 16px;
+    font-weight: bold;
+    color: var(--text-primary);
+    text-align: center;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
 @media (max-width: 768px) {
     .attribute-filters {
         gap: 3px;
@@ -1010,6 +1062,13 @@ body {
         grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
         gap: 10px;
     }
+    .hero-icon {
+        width: 70px;
+        height: 70px;
+    }
+    .hero-name {
+        font-size: 14px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -1019,5 +1078,9 @@ body {
     .attribute-btn {
         padding: 3px 6px;
         font-size: 10px;
+    }
+    .hero-icon {
+        width: 60px;
+        height: 60px;
     }
 }
