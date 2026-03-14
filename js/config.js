@@ -12,54 +12,6 @@ const siteConfig = {
     // ============================================
     heroes: {
         // -------------------------------------------------
-        // LUNA
-        // -------------------------------------------------
-        "luna": {
-            name: "Luna",
-            nameRu: "Луна",
-            icon: "icons/heroes/luna.png",
-            
-            skills: {
-                "q": {
-                    name: "Lucent Beam",
-                    icon: "icons/skills/luna/lucent_beam.png",
-                    description: "Наносит магический урон одной цели. Можно улучшить талантом на перезарядку.",
-                    build: "builds/luna/lucent_beam.jpg"
-                },
-                "w": {
-                    name: "Moon Glaive",
-                    icon: "icons/skills/luna/moon_glaive.png",
-                    description: "Атаки перескакивают на ближайших врагов. С каждым прыжком урон снижается.",
-                    build: "builds/luna/moon_glaive.jpg"
-                },
-                "e": {
-                    name: "Lunar Blessing",
-                    icon: "icons/skills/luna/lunar_blessing.png",
-                    description: "Пассивно увеличивает урон союзникам. Дает бонус к дальности атаки ночью.",
-                    build: "builds/luna/lunar_blessing.jpg"
-                },
-                "r": {
-                    name: "Eclipse",
-                    icon: "icons/skills/luna/eclipse.png",
-                    description: "Призывает лунные лучи, которые бьют по врагам вокруг. Длится несколько секунд.",
-                    build: "builds/luna/eclipse.jpg"
-                },
-                "d": {
-                    name: "Dragon Lance",
-                    icon: "icons/skills/luna/dragon_lance.png",
-                    description: "Увеличивает дальность атаки и дает характеристики.",
-                    build: "builds/luna/dragon_lance.jpg"
-                },
-                "f": {
-                    name: "Butterfly",
-                    icon: "icons/skills/luna/butterfly.png",
-                    description: "Дает уклонение, скорость атаки и ловкость.",
-                    build: "builds/luna/butterfly.jpg"
-                }
-            }
-        },
-        
-        // -------------------------------------------------
         // ENIGMA
         // -------------------------------------------------
         "enigma": {
