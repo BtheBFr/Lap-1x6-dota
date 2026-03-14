@@ -75,10 +75,10 @@ const siteConfig = {
                     build: "icons/builds/enigma/enigma_malefice.jpg"
                 },
                 "w": {
-                    name: "Rot",
-                    icon: "icons/skills/pudge/rot.png",
-                    description: "Наносит урон всем вокруг, но также замедляет и наносит урон самому Pudge.",
-                    build: "builds/pudge/rot.jpg"
+                    name: "Demonic Summoning",
+                    icon: "icons/skills/enigma/demonic_summoning.png",
+                    description: "Призывает 3 эйдолонов на 16 сек. Их здоровье зависит от макс. здоровья владельца. Эйдолоны раздваиваются после 6 атак, при этом полностью восстанавливая здоровье.",
+                    build: "icons/builds/enigma/enigma_demonic_summoning.jpg"
                 },
                 "e": {
                     name: "Flesh Heap",
