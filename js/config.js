@@ -70,16 +70,22 @@ const siteConfig = {
                     build: "icons/builds/tinker/tinker_march_of_the_machines.jpg"
                 },
                 "e": {
-                    name: "Heavenly Jump",
-                    icon: "icons/skills/zeus/heavenly_jump.png",
-                    description: "Герой совершает божественный прыжок и бьёт током 3 ближайших противников, нанеся им урон и замедлив передвижение и атаку. Способность на 3 сек даёт беспрепятственный обзор в радиусе 900 вокруг владельца.",
-                    build: "icons/builds/zeus/zeus_heavenly_jump.jpg"
+                    name: "Defense matrix",
+                    icon: "icons/skills/tinker/defense_matrix.png",
+                    description: "Создает барьер, который поглащает урон и даёт сопротивление эффектам. Барьер изначально имеет 50% мощности и набирает полную прочность за 3 сек. Не поглащает урон от башен.",
+                    build: "icons/builds/tinker/tinker_defense_matrix.jpg"
                 },
                 "r": {
-                    name: "Thundergod's Wrath",
-                    icon: "icons/skills/zeus/thundergods_wrath.png",
-                    description: "Поражает всех вражеских врагов молнией вне зависимости от их местоположения, нанося магический урон. Способность также раскрывает невидимость вражеских существ вокруг каждого поражённого противника. Если герой врага невидим, то он не получит урона, но невидимость всё равно раскроется. Наносит только 60% урона целям на расстоянии большем чем 2500. Наносит урон крипам в радиусе 1500.",
-                    build: "icons/builds/zeus/zeus_thundergods_wrath.jpg"
+                    name: "Rearm",
+                    icon: "icons/skills/tinker/rearm.png",
+                    description: "ПРЕРЫВАЕМАЯ - сбрасывает перезарядку способностей героя и свитка телепортации. Расходует 12% от макс. маны.",
+                    build: "icons/builds/tinker/tinker_rearm.jpg"
+                },
+                "d": {
+                    name: "Warp Flare",
+                    icon: "icons/skills/tinker/warp_flare.png",
+                    description: "Выпускает во врага снаряд, который наносит урон, отталкивает цель от владельца, и накладывает замедление и привязку на 2.5 сек. Чем ближе цель, тем сильнее отталкивание. С легендарным талантом Defense Matrix притягивает цель к вам.",
+                    build: "icons/builds/tinker/tinker_warp_flare.jpg"
                 }
             }
         }, 
