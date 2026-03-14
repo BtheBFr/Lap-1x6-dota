@@ -34,16 +34,16 @@ const siteConfig = {
                     build: "icons/builds/wraith_king/wraith_king_bone_guard.jpg"
                 },
                 "e": {
-                    name: "Heavenly Jump",
-                    icon: "icons/skills/zeus/heavenly_jump.png",
-                    description: "Герой совершает божественный прыжок и бьёт током 3 ближайших противников, нанеся им урон и замедлив передвижение и атаку. Способность на 3 сек даёт беспрепятственный обзор в радиусе 900 вокруг владельца.",
-                    build: "icons/builds/zeus/heavenly_jump.jpg"
+                    name: "Mortal Strike",
+                    icon: "icons/skills/wraith_king/mortal_strike.png",
+                    description: "Герой наносит атакой дополнительный урон. Способность имеет перезарядку. Также, пассивно дает атакам прорубающий урон.",
+                    build: "icons/builds/wraith_king/wraith_king_mortal_strike.jpg"
                 },
                 "r": {
-                    name: "Thundergod's Wrath",
-                    icon: "icons/skills/zeus/thundergods_wrath.png",
-                    description: "Поражает всех вражеских врагов молнией вне зависимости от их местоположения, нанося магический урон. Способность также раскрывает невидимость вражеских существ вокруг каждого поражённого противника. Если герой врага невидим, то он не получит урона, но невидимость всё равно раскроется. Наносит только 60% урона целям на расстоянии большем чем 2500. Наносит урон крипам в радиусе 1500.",
-                    build: "icons/builds/zeus/thundergods_wrath.jpg"
+                    name: "Reincarnation",
+                    icon: "icons/skills/wraith_king/reincarnation.png",
+                    description: "",
+                    build: "icons/builds/wraith_king/wraith_king_reincarnation.jpg"
                 }
             }
         }, 
@@ -73,13 +73,13 @@ const siteConfig = {
                     name: "Heavenly Jump",
                     icon: "icons/skills/zeus/heavenly_jump.png",
                     description: "Герой совершает божественный прыжок и бьёт током 3 ближайших противников, нанеся им урон и замедлив передвижение и атаку. Способность на 3 сек даёт беспрепятственный обзор в радиусе 900 вокруг владельца.",
-                    build: "icons/builds/zeus/heavenly_jump.jpg"
+                    build: "icons/builds/zeus/zeus_heavenly_jump.jpg"
                 },
                 "r": {
                     name: "Thundergod's Wrath",
                     icon: "icons/skills/zeus/thundergods_wrath.png",
                     description: "Поражает всех вражеских врагов молнией вне зависимости от их местоположения, нанося магический урон. Способность также раскрывает невидимость вражеских существ вокруг каждого поражённого противника. Если герой врага невидим, то он не получит урона, но невидимость всё равно раскроется. Наносит только 60% урона целям на расстоянии большем чем 2500. Наносит урон крипам в радиусе 1500.",
-                    build: "icons/builds/zeus/thundergods_wrath.jpg"
+                    build: "icons/builds/zeus/zeus_thundergods_wrath.jpg"
                 }
             }
         }, 
