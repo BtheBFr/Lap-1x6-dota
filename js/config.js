@@ -30,7 +30,7 @@ const siteConfig = {
                 "w": {
                     name: "Bone Guard",
                     icon: "icons/skills/wraith_king/bone_guard.png",
-                    description: "",
+                    description: "Способность получает один заряд за каждых двух существ, убитых её владельцем. Убийство героя дает макс. зарядов. Применение способности расходует все заряды и призывает скелетов, которые возрождаются один раз. Скелеты получают вампиризм от Vampiric Spirit. Способность можно переключить, чтобы приказать скелетам не атаковать и следовать за вами.",
                     build: "icons/builds/wraith_king/wraith_king_bone_guard.jpg"
                 },
                 "e": {
