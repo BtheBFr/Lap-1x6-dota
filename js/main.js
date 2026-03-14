@@ -1,6 +1,6 @@
 // Основной файл с логикой сайта
 
-// Данные о героях (в реальности будут загружаться из heroes.json)
+// Данные о героях
 const heroesData = {
     "luna": {
         name: "Luna",
@@ -89,6 +89,14 @@ document.addEventListener('DOMContentLoaded', function() {
     if (window.location.pathname.includes('build.html')) {
         loadBuildPage();
     }
+
+    // Кнопка на главную
+    const homeBtn = document.getElementById('homeBtn');
+    if (homeBtn) {
+        homeBtn.addEventListener('click', () => {
+            window.location.href = 'index.html';
+        });
+    }
 });
 
 // Загрузка сетки героев
@@ -156,6 +164,8 @@ function loadHeroPage() {
     
     // Загружаем скиллы
     const skillsGrid = document.getElementById('skillsGrid');
+    skillsGrid.innerHTML = '';
+    
     const keybindings = JSON.parse(localStorage.getItem('keybindings')) || {
         q: 'Q', w: 'W', e: 'E', r: 'R', d: 'D', f: 'F'
     };
@@ -245,15 +255,32 @@ if (closeSupportModal) {
     });
 }
 
-// Закрытие модального окна при клике вне его
+// Модальное окно настроек
+const settingsBtn = document.getElementById('settingsBtn');
+const settingsModal = document.getElementById('settingsModal');
+const closeSettingsModal = document.getElementById('closeSettingsModal');
+
+if (settingsBtn) {
+    settingsBtn.addEventListener('click', () => {
+        settingsModal.classList.add('active');
+    });
+}
+
+if (closeSettingsModal) {
+    closeSettingsModal.addEventListener('click', () => {
+        settingsModal.classList.remove('active');
+    });
+}
+
+// Закрытие модальных окон при клике вне их
 window.addEventListener('click', (e) => {
     if (e.target === supportModal) {
         supportModal.classList.remove('active');
         resetSupportModal();
     }
     
-    if (e.target === document.getElementById('settingsModal')) {
-        document.getElementById('settingsModal').classList.remove('active');
+    if (e.target === settingsModal) {
+        settingsModal.classList.remove('active');
     }
 });
 
@@ -321,11 +348,9 @@ if (submitSupport) {
             return;
         }
         
-        // Здесь будет отправка в Google Sheets через support.js
         if (typeof submitSupportTicket === 'function') {
             submitSupportTicket(problem, hero, skill, description);
         } else {
-            // Заглушка
             showToast('Спасибо за обращение!');
             supportModal.classList.remove('active');
             resetSupportModal();
