@@ -3,274 +3,128 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-    <title>Lap 1x6 Pack</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Lap 1x6 Dota от Lap.comp и B the B</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <div id="app">
-        <!-- ЭКРАН АВТОРИЗАЦИИ - ТОЛЬКО ЭТОТ ЭКРАН ВИДЕН ПРИ ВХОДЕ -->
-        <div id="auth-screen" class="screen active">
-            <div class="auth-center">
-                <div class="auth-container">
-                    <div class="logo">
-                        <h1>Lap 1x6 Pack</h1>
-                        <p>by Lap.comp & B the B</p>
-                    </div>
-                    
-                    <a href="https://t.me/Lap1x6Dota_bot" target="_blank" class="bot-link">
-                        <div class="bot-button">
-                            <span class="bot-icon">🤖</span>
-                            <span class="bot-text">Получить токен</span>
-                            <span class="bot-arrow">→</span>
-                        </div>
-                    </a>
-                    
-                    <div class="auth-divider">или</div>
-                    
-                    <div class="auth-form">
-                        <input type="text" id="token-input" placeholder="Введите токен" maxlength="20" autocomplete="off">
-                        <button id="login-btn" class="primary-btn">Войти</button>
-                        <div id="auth-error" class="error-message"></div>
-                    </div>
-                </div>
-            </div>
+    <div class="settings-button" id="settingsBtn">
+        <i class="fas fa-cog"></i> Настройки
+    </div>
+
+    <main class="container">
+        <h1 class="site-title">Lap 1x6 Dota</h1>
+        <p class="site-subtitle">от Lap.comp и B the B</p>
+        
+        <div class="search-container">
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" class="search-input" id="searchInput" placeholder="Поиск персонажа...">
         </div>
 
-        <!-- ГЛАВНЫЙ ЭКРАН - ТОЛЬКО ГЛАВНАЯ -->
-        <div id="main-screen" class="screen">
-            <div class="main-content">
-                <header>
-                    <h2>Lap 1x6 Pack</h2>
-                    <div class="header-actions">
-                        <button id="favorites-btn" class="icon-btn">☆</button>
-                        <button id="settings-btn" class="icon-btn">⚙️</button>
-                        <button id="support-btn" class="icon-btn">💬</button>
-                        <button id="admin-btn" class="icon-btn" style="display: none;">👑</button>
-                        <button id="logout-btn" class="icon-btn logout-btn" title="Выйти">🚪</button>
-                    </div>
-                </header>
-
-                <div class="search-container">
-                    <input type="text" id="search-input" placeholder="🔍 Поиск героя...">
-                </div>
-
-                <div id="heroes-grid" class="heroes-grid"></div>
-            </div>
-
-            <button id="no-hero-btn" class="support-btn-bottom">Нет нужного</button>
+        <div class="heroes-grid" id="heroesGrid">
+            <!-- Герои будут загружаться через JavaScript -->
         </div>
+    </main>
 
-        <!-- ЭКРАН ГЕРОЯ -->
-        <div id="hero-screen" class="screen">
-            <div class="content">
-                <header>
-                    <button id="back-to-main" class="back-btn">←</button>
-                    <h3 id="hero-name"></h3>
-                    <button id="hero-favorite" class="icon-btn">☆</button>
-                </header>
+    <button class="support-button" id="supportBtn">
+        <i class="fas fa-headset"></i>
+        <span>Поддержка</span>
+    </button>
 
-                <div id="skills-container" class="skills-container"></div>
+    <!-- Модальное окно поддержки -->
+    <div class="modal" id="supportModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Поддержка</h2>
+                <button class="close-btn" id="closeSupportModal">&times;</button>
             </div>
-
-            <button id="hero-support-btn" class="support-btn-bottom">Поддержка</button>
-        </div>
-
-        <!-- ЭКРАН СБОРКИ -->
-        <div id="build-screen" class="screen">
-            <div class="content">
-                <header>
-                    <button id="back-to-hero" class="back-btn">←</button>
-                    <h3 id="build-title"></h3>
-                    <div>
-                        <button id="download-build" class="icon-btn">📥</button>
-                        <button id="favorite-build" class="icon-btn">☆</button>
-                    </div>
-                </header>
-
-                <div class="build-image-container">
-                    <img id="build-image" src="" alt="Сборка" class="build-image">
+            <div class="modal-body">
+                <p class="modal-subtitle">Выберите проблему:</p>
+                <div class="support-options">
+                    <button class="support-option" data-problem="settings">
+                        <i class="fas fa-sliders-h"></i>
+                        Не работают настройки
+                    </button>
+                    <button class="support-option" data-problem="missing_skill">
+                        <i class="fas fa-bolt"></i>
+                        Нет скилла
+                    </button>
+                    <button class="support-option" data-problem="wrong_build">
+                        <i class="fas fa-image"></i>
+                        Сборка неправильная
+                    </button>
+                    <button class="support-option" data-problem="missing_hero">
+                        <i class="fas fa-user"></i>
+                        Нет персонажа
+                    </button>
+                    <button class="support-option" data-problem="other">
+                        <i class="fas fa-question"></i>
+                        Другое
+                    </button>
                 </div>
-            </div>
-
-            <button id="build-support-btn" class="support-btn-bottom">Поддержка</button>
-        </div>
-
-        <!-- ЭКРАН НАСТРОЕК -->
-        <div id="settings-screen" class="screen">
-            <div class="content">
-                <header>
-                    <button id="back-from-settings" class="back-btn">←</button>
-                    <h3>Настройки</h3>
-                    <button id="save-settings" class="icon-btn">💾</button>
-                </header>
-
-                <div class="settings-container">
-                    <div class="setting-item">
-                        <label>Q →</label>
-                        <select id="bind-q">
-                            <option value="Q">Q</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                        </select>
-                    </div>
-                    <div class="setting-item">
-                        <label>W →</label>
-                        <select id="bind-w">
-                            <option value="W">W</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                        </select>
-                    </div>
-                    <div class="setting-item">
-                        <label>E →</label>
-                        <select id="bind-e">
-                            <option value="E">E</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                        </select>
-                    </div>
-                    <div class="setting-item">
-                        <label>D →</label>
-                        <select id="bind-d">
-                            <option value="D">D</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                        </select>
-                    </div>
-                    <div class="setting-item">
-                        <label>F →</label>
-                        <select id="bind-f">
-                            <option value="F">F</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                        </select>
-                    </div>
-                    <div class="setting-item">
-                        <label>R →</label>
-                        <select id="bind-r">
-                            <option value="R">R</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ЭКРАН ИЗБРАННОГО -->
-        <div id="favorites-screen" class="screen">
-            <div class="content">
-                <header>
-                    <button id="back-from-favorites" class="back-btn">←</button>
-                    <h3>Избранное</h3>
-                </header>
-                <div id="favorites-grid" class="heroes-grid"></div>
-            </div>
-        </div>
-
-        <!-- ЭКРАН ПОДДЕРЖКИ -->
-        <div id="support-screen" class="screen">
-            <div class="content">
-                <header>
-                    <button id="back-from-support" class="back-btn">←</button>
-                    <h3>Поддержка</h3>
-                </header>
-
-                <div class="support-container">
-                    <button id="support-no-hero" class="support-option">Нет нужного персонажа</button>
-                    <button id="support-old-build" class="support-option">Старая сборка</button>
-                    <button id="support-wrong-build" class="support-option">Неверная сборка</button>
-                    <button id="support-custom" class="support-option">Своё сообщение</button>
-
-                    <div id="custom-message-container" style="display: none;">
-                        <textarea id="custom-message" placeholder="Введите сообщение..." rows="4"></textarea>
-                        <div id="hero-selector" style="display: none;">
-                            <input type="text" id="missing-hero" placeholder="Какого героя не хватает?">
-                        </div>
-                        <div id="skill-selector" style="display: none;">
-                            <select id="missing-skill">
-                                <option value="">Способность</option>
-                                <option value="Q">Q</option>
-                                <option value="W">W</option>
-                                <option value="E">E</option>
-                                <option value="D">D</option>
-                                <option value="F">F</option>
-                                <option value="R">R</option>
-                            </select>
-                        </div>
-                        <button id="send-support" class="primary-btn">Отправить</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- АДМИН-ПАНЕЛЬ -->
-        <div id="admin-screen" class="screen">
-            <div class="content">
-                <header>
-                    <button id="back-from-admin" class="back-btn">←</button>
-                    <h3>Админ</h3>
-                </header>
-
-                <div class="admin-tabs">
-                    <button class="admin-tab active" data-tab="users">👥</button>
-                    <button class="admin-tab" data-tab="support">💬</button>
-                    <button class="admin-tab" data-tab="stats">📊</button>
-                </div>
-
-                <div id="admin-users" class="admin-tab-content active">
-                    <div id="users-list"></div>
-                </div>
-
-                <div id="admin-support" class="admin-tab-content">
-                    <div id="support-messages"></div>
-                </div>
-
-                <div id="admin-stats" class="admin-tab-content">
-                    <div class="stats-grid">
-                        <div class="stat-card">
-                            <div class="stat-value" id="total-users">0</div>
-                            <div class="stat-label">Пользователи</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-value" id="total-support">0</div>
-                            <div class="stat-label">Обращения</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-value" id="total-favs">0</div>
-                            <div class="stat-label">Избранное</div>
-                        </div>
-                    </div>
+                
+                <!-- Дополнительные поля (появляются при выборе) -->
+                <div id="additionalFields" class="additional-fields" style="display: none;">
+                    <input type="text" id="heroField" class="modal-input" placeholder="Имя героя">
+                    <input type="text" id="skillField" class="modal-input" placeholder="Название скилла">
+                    <textarea id="descriptionField" class="modal-textarea" placeholder="Опишите проблему подробнее..."></textarea>
+                    <button class="submit-support-btn" id="submitSupport">
+                        <i class="fas fa-paper-plane"></i>
+                        Отправить
+                    </button>
                 </div>
             </div>
         </div>
     </div>
 
-    <script src="config.js"></script>
-    <script src="script.js"></script>
+    <!-- Модальное окно настроек -->
+    <div class="modal" id="settingsModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Настройки клавиш</h2>
+                <button class="close-btn" id="closeSettingsModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p class="settings-info">Нажмите на кнопку, затем нажмите новую клавишу</p>
+                <div class="keybinds-grid">
+                    <div class="keybind-item">
+                        <span class="skill-label">Q</span>
+                        <button class="keybind-btn" id="key-Q" data-skill="q">Q</button>
+                    </div>
+                    <div class="keybind-item">
+                        <span class="skill-label">W</span>
+                        <button class="keybind-btn" id="key-W" data-skill="w">W</button>
+                    </div>
+                    <div class="keybind-item">
+                        <span class="skill-label">E</span>
+                        <button class="keybind-btn" id="key-E" data-skill="e">E</button>
+                    </div>
+                    <div class="keybind-item">
+                        <span class="skill-label">R</span>
+                        <button class="keybind-btn" id="key-R" data-skill="r">R</button>
+                    </div>
+                    <div class="keybind-item">
+                        <span class="skill-label">D</span>
+                        <button class="keybind-btn" id="key-D" data-skill="d">D</button>
+                    </div>
+                    <div class="keybind-item">
+                        <span class="skill-label">F</span>
+                        <button class="keybind-btn" id="key-F" data-skill="f">F</button>
+                    </div>
+                </div>
+                <button class="reset-keys-btn" id="resetKeys">
+                    <i class="fas fa-undo"></i>
+                    Сбросить на стандартные (Q,W,E,R,D,F)
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Уведомления -->
+    <div class="toast" id="toast">Сохранено</div>
+
+    <script src="js/main.js"></script>
+    <script src="js/settings.js"></script>
+    <script src="js/support.js"></script>
 </body>
 </html>
