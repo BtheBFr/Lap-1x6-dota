@@ -808,19 +808,18 @@ body {
 .hero-icon {
     width: 90px;
     height: 90px;
-    border-radius: 50%;
+    border-radius: 50%;  /* это делает круг */
     margin: 0 auto 10px;
-    object-fit: cover;
+    object-fit: cover;    /* это чтобы фото не искажалось */
     border: 3px solid var(--bg-tertiary);
     transition: var(--transition);
     display: block;
-    max-width: 100%;
-    max-height: 100%;
+    aspect-ratio: 1 / 1;  /* принудительно квадрат */
 }
 
-.hero-card:hover .hero-icon {
-    border-color: var(--accent);
-    transform: scale(1.05);
+/* Если фото все еще овальное, добавьте это */
+.hero-card .hero-icon {
+    border-radius: 50% !important;
 }
 
 .hero-name {
