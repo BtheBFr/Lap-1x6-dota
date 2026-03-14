@@ -142,10 +142,10 @@ const siteConfig = {
                     build: "icons/builds/bane/bane_enfeeble.jpg"
                 },
                 "w": {
-                    name: "Lightning Bolt",
-                    icon: "icons/skills/zeus/lightning_bolt.png",
-                    description: "Ударом молнии наносит врагу урон и ненадолго его оглушает. Наносит крипам в 2 раза больше урона. В точке применения дает обзор радиусом 750 на 6 сек. Также раскрывает невидимость цели и дает на нее обзор. Не раскрывает невидимость вардов.",
-                    build: "icons/builds/zeus/zeus_lightning_bolt.jpg"
+                    name: "Brain Sap",
+                    icon: "icons/skills/bane/brain_sap.png",
+                    description: "",
+                    build: "icons/builds/bane/bane_brain_sap.jpg"
                 },
                 "e": {
                     name: "Heavenly Jump",
