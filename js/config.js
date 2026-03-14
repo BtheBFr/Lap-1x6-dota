@@ -81,16 +81,16 @@ const siteConfig = {
                     build: "icons/builds/enigma/enigma_demonic_summoning.jpg"
                 },
                 "e": {
-                    name: "Flesh Heap",
-                    icon: "icons/skills/pudge/flesh_heap.png",
-                    description: "Пассивно дает сопротивление магии и силу за каждый труп рядом.",
-                    build: "builds/pudge/flesh_heap.jpg"
+                    name: "Midnight pulse",
+                    icon: "icons/skills/enigma/midnight_pulse.png",
+                    description: "Наполняет местность тёмным резонансом, который наносит врагам базовый урон и урон их текущего здоровья. Крипы получают больше базового урона, но не получают урон от здоровья. Перезарядка способности начинается после конца эффекта.",
+                    build: "icons/builds/enigma/enigma_midnight_pulse.jpg"
                 },
                 "r": {
                     name: "Black Hole",
                     icon: "icons/skills/enigma/black_hole.png",
                     description: "Хватает врага и наносит урон с течением времени, оглушая его.",
-                    build: "builds/pudge/dismember.jpg"
+                    build: "icons/builds/enigma/enigma_black_hole.jpg"
                 }
             }
         },
