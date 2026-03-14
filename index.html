@@ -21,6 +21,24 @@
             <input type="text" class="search-input" id="searchInput" placeholder="Поиск персонажа...">
         </div>
 
+        <!-- ФИЛЬТРЫ ПО АТРИБУТАМ -->
+        <div class="attribute-filters">
+            <button class="attribute-btn active" data-attribute="all">Все</button>
+            <button class="attribute-btn strength" data-attribute="strength">
+                <i class="fas fa-heart"></i> Сила
+            </button>
+            <button class="attribute-btn agility" data-attribute="agility">
+                <i class="fas fa-bolt"></i> Ловкость
+            </button>
+            <button class="attribute-btn intellect" data-attribute="intellect">
+                <i class="fas fa-brain"></i> Интеллект
+            </button>
+            <button class="attribute-btn universal" data-attribute="universal">
+                <i class="fas fa-star"></i> Универсальные
+            </button>
+        </div>
+
+        <!-- СЕТКА ГЕРОЕВ -->
         <div class="heroes-grid" id="heroesGrid">
             <!-- Герои будут загружаться через JavaScript -->
         </div>
