@@ -786,7 +786,7 @@ body {
     padding: 15px 5px;
     text-align: center;
     cursor: pointer;
-    user-select: none;          /* убирает выделение */
+    user-select: none;          /* весь текст не выделяется */
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
@@ -803,7 +803,6 @@ body {
     box-sizing: border-box;
 }
 
-/* Для фото */
 .hero-icon {
     width: 75px;
     height: 75px;
@@ -814,13 +813,13 @@ body {
     transition: var(--transition);
     display: block;
     aspect-ratio: 1 / 1;
-    pointer-events: none;       /* фото не выделяется */
+    pointer-events: none;       /* фото не реагирует на мышь */
     -webkit-user-drag: none;    /* нельзя перетащить */
     user-select: none;
 }
 
 .hero-name {
-    font-size: 15px;          /* чуть меньше */
+    font-size: 15px;
     font-weight: 500;
     color: var(--text-primary);
     text-align: center;
@@ -830,7 +829,8 @@ body {
     white-space: nowrap;
     font-family: 'Segoe UI', 'Arial', sans-serif;
     text-decoration: none;
-    padding: 0 5px;           /* добавил отступы */
+    padding: 0 5px;
+    user-select: none;          /* имя тоже не выделяется */
 }
 
 @media (max-width: 768px) {
