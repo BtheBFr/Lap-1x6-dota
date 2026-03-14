@@ -16,7 +16,7 @@ const siteConfig = {
         // -------------------------------------------------
         "wraith_king": {
             name: "Wraith King",
-            nameRu: "Враит кинг, врайт кинг, врай кинг, врайт кин, враит кин, врай кин",
+            nameRu: "Враит кинг, врайт кинг, врай кинг, врайт кин, враит кин, врай кин, вк",
             attribute: "strength",
             icon: "icons/heroes/wraith_king.png",
             
