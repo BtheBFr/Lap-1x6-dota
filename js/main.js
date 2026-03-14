@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Кнопка на главную
     const homeBtn = document.getElementById('homeBtn');
     if (homeBtn) {
-        homeBtn.addEventListener('click', () => {
+        homeBtn.addEventListener('click', function() {
             window.location.href = 'index.html';
         });
     }
@@ -40,10 +40,15 @@ document.addEventListener('DOMContentLoaded', function() {
 // Загрузка сетки героев
 function loadHeroes() {
     // Очищаем все сетки
-    document.getElementById('strength-grid').innerHTML = '';
-    document.getElementById('agility-grid').innerHTML = '';
-    document.getElementById('intellect-grid').innerHTML = '';
-    document.getElementById('universal-grid').innerHTML = '';
+    const strengthGrid = document.getElementById('strength-grid');
+    const agilityGrid = document.getElementById('agility-grid');
+    const intellectGrid = document.getElementById('intellect-grid');
+    const universalGrid = document.getElementById('universal-grid');
+    
+    if (strengthGrid) strengthGrid.innerHTML = '';
+    if (agilityGrid) agilityGrid.innerHTML = '';
+    if (intellectGrid) intellectGrid.innerHTML = '';
+    if (universalGrid) universalGrid.innerHTML = '';
     
     // Сортируем героев по атрибутам
     Object.keys(siteConfig.heroes).forEach(heroKey => {
@@ -54,7 +59,11 @@ function loadHeroes() {
         heroCard.className = 'hero-card';
         heroCard.setAttribute('data-hero', heroKey);
         heroCard.setAttribute('data-attribute', attr);
-        heroCard.onclick = () => goToHero(heroKey);
+        
+        // Добавляем обработчик клика
+        heroCard.addEventListener('click', function() {
+            goToHero(heroKey);
+        });
         
         heroCard.innerHTML = `
             <img src="${hero.icon}" alt="${hero.name}" class="hero-icon" loading="lazy">
@@ -62,14 +71,14 @@ function loadHeroes() {
         `;
         
         // Добавляем в соответствующую сетку
-        if (attr === 'strength') {
-            document.getElementById('strength-grid').appendChild(heroCard);
-        } else if (attr === 'agility') {
-            document.getElementById('agility-grid').appendChild(heroCard);
-        } else if (attr === 'intellect') {
-            document.getElementById('intellect-grid').appendChild(heroCard);
-        } else {
-            document.getElementById('universal-grid').appendChild(heroCard);
+        if (attr === 'strength' && strengthGrid) {
+            strengthGrid.appendChild(heroCard);
+        } else if (attr === 'agility' && agilityGrid) {
+            agilityGrid.appendChild(heroCard);
+        } else if (attr === 'intellect' && intellectGrid) {
+            intellectGrid.appendChild(heroCard);
+        } else if (universalGrid) {
+            universalGrid.appendChild(heroCard);
         }
     });
     
@@ -83,12 +92,12 @@ function filterByAttribute() {
     
     sections.forEach(attr => {
         const section = document.getElementById(attr + '-section');
-        const grid = document.getElementById(attr + '-grid');
-        
-        if (currentAttribute === 'all' || currentAttribute === attr) {
-            section.classList.remove('hidden');
-        } else {
-            section.classList.add('hidden');
+        if (section) {
+            if (currentAttribute === 'all' || currentAttribute === attr) {
+                section.classList.remove('hidden');
+            } else {
+                section.classList.add('hidden');
+            }
         }
     });
     
@@ -119,7 +128,7 @@ function applySearch(searchTerm) {
         const nameRu = hero.nameRu ? hero.nameRu.toLowerCase() : '';
         
         if (nameEn.includes(searchTerm) || nameRu.includes(searchTerm)) {
-            card.style.display = 'block';
+            card.style.display = 'flex';
         } else {
             card.style.display = 'none';
         }
@@ -142,34 +151,42 @@ function loadHeroPage() {
         return;
     }
     
-    document.getElementById('heroIcon').src = hero.icon;
-    document.getElementById('heroIcon').alt = hero.name;
-    document.getElementById('heroName').textContent = hero.name;
-    
+    const heroIcon = document.getElementById('heroIcon');
+    const heroName = document.getElementById('heroName');
     const skillsGrid = document.getElementById('skillsGrid');
-    skillsGrid.innerHTML = '';
     
-    const keybindings = JSON.parse(localStorage.getItem('keybindings')) || {
-        q: 'Q', w: 'W', e: 'E', r: 'R', d: 'D', f: 'F'
-    };
+    if (heroIcon) heroIcon.src = hero.icon;
+    if (heroIcon) heroIcon.alt = hero.name;
+    if (heroName) heroName.textContent = hero.name;
     
-    Object.keys(hero.skills).forEach(skillKey => {
-        const skill = hero.skills[skillKey];
-        const skillCard = document.createElement('div');
-        skillCard.className = 'skill-card';
-        skillCard.onclick = () => goToBuild(heroKey, skillKey);
+    if (skillsGrid) {
+        skillsGrid.innerHTML = '';
         
-        skillCard.innerHTML = `
-            <div class="skill-key">${keybindings[skillKey] || skillKey.toUpperCase()}</div>
-            <div class="skill-header">
-                <img src="${skill.icon}" alt="${skill.name}" class="skill-icon">
-                <div class="skill-name">${skill.name}</div>
-            </div>
-            <div class="skill-description">${skill.description}</div>
-        `;
+        const keybindings = JSON.parse(localStorage.getItem('keybindings')) || {
+            q: 'Q', w: 'W', e: 'E', r: 'R', d: 'D', f: 'F'
+        };
         
-        skillsGrid.appendChild(skillCard);
-    });
+        Object.keys(hero.skills).forEach(skillKey => {
+            const skill = hero.skills[skillKey];
+            const skillCard = document.createElement('div');
+            skillCard.className = 'skill-card';
+            
+            skillCard.addEventListener('click', function() {
+                goToBuild(heroKey, skillKey);
+            });
+            
+            skillCard.innerHTML = `
+                <div class="skill-key">${keybindings[skillKey] || skillKey.toUpperCase()}</div>
+                <div class="skill-header">
+                    <img src="${skill.icon}" alt="${skill.name}" class="skill-icon">
+                    <div class="skill-name">${skill.name}</div>
+                </div>
+                <div class="skill-description">${skill.description}</div>
+            `;
+            
+            skillsGrid.appendChild(skillCard);
+        });
+    }
 }
 
 // Переход на страницу сборки
@@ -192,16 +209,22 @@ function loadBuildPage() {
     
     const skill = hero.skills[skillKey];
     
-    document.getElementById('buildHeroName').textContent = hero.name;
-    document.getElementById('buildSkillName').textContent = skill.name;
-    document.getElementById('buildImage').src = skill.build;
-    document.getElementById('buildImage').alt = `${hero.name} - ${skill.name}`;
+    const buildHeroName = document.getElementById('buildHeroName');
+    const buildSkillName = document.getElementById('buildSkillName');
+    const buildImage = document.getElementById('buildImage');
+    
+    if (buildHeroName) buildHeroName.textContent = hero.name;
+    if (buildSkillName) buildSkillName.textContent = skill.name;
+    if (buildImage) {
+        buildImage.src = skill.build;
+        buildImage.alt = `${hero.name} - ${skill.name}`;
+    }
 }
 
 // Кнопка назад
 const backBtn = document.getElementById('backBtn');
 if (backBtn) {
-    backBtn.addEventListener('click', () => {
+    backBtn.addEventListener('click', function() {
         window.location.href = 'hero.html';
     });
 }
@@ -211,11 +234,13 @@ const downloadBtn = document.getElementById('downloadBtn');
 if (downloadBtn) {
     downloadBtn.addEventListener('click', function() {
         const img = document.getElementById('buildImage');
-        const link = document.createElement('a');
-        link.href = img.src;
-        link.download = img.src.split('/').pop();
-        link.click();
-        showToast('Скачивание начато');
+        if (img && img.src) {
+            const link = document.createElement('a');
+            link.href = img.src;
+            link.download = img.src.split('/').pop();
+            link.click();
+            showToast('Скачивание начато');
+        }
     });
 }
 
@@ -225,14 +250,14 @@ const supportModal = document.getElementById('supportModal');
 const closeSupportModal = document.getElementById('closeSupportModal');
 
 if (supportBtn) {
-    supportBtn.addEventListener('click', () => {
-        supportModal.classList.add('active');
+    supportBtn.addEventListener('click', function() {
+        if (supportModal) supportModal.classList.add('active');
     });
 }
 
 if (closeSupportModal) {
-    closeSupportModal.addEventListener('click', () => {
-        supportModal.classList.remove('active');
+    closeSupportModal.addEventListener('click', function() {
+        if (supportModal) supportModal.classList.remove('active');
         resetSupportModal();
     });
 }
@@ -243,19 +268,19 @@ const settingsModal = document.getElementById('settingsModal');
 const closeSettingsModal = document.getElementById('closeSettingsModal');
 
 if (settingsBtn) {
-    settingsBtn.addEventListener('click', () => {
-        settingsModal.classList.add('active');
+    settingsBtn.addEventListener('click', function() {
+        if (settingsModal) settingsModal.classList.add('active');
     });
 }
 
 if (closeSettingsModal) {
-    closeSettingsModal.addEventListener('click', () => {
-        settingsModal.classList.remove('active');
+    closeSettingsModal.addEventListener('click', function() {
+        if (settingsModal) settingsModal.classList.remove('active');
     });
 }
 
 // Закрытие модальных окон при клике вне их
-window.addEventListener('click', (e) => {
+window.addEventListener('click', function(e) {
     if (e.target === supportModal) {
         supportModal.classList.remove('active');
         resetSupportModal();
@@ -270,10 +295,15 @@ function resetSupportModal() {
     document.querySelectorAll('.support-option').forEach(opt => {
         opt.classList.remove('selected');
     });
-    document.getElementById('additionalFields').style.display = 'none';
-    document.getElementById('heroField').value = '';
-    document.getElementById('skillField').value = '';
-    document.getElementById('descriptionField').value = '';
+    const additionalFields = document.getElementById('additionalFields');
+    const heroField = document.getElementById('heroField');
+    const skillField = document.getElementById('skillField');
+    const descriptionField = document.getElementById('descriptionField');
+    
+    if (additionalFields) additionalFields.style.display = 'none';
+    if (heroField) heroField.value = '';
+    if (skillField) skillField.value = '';
+    if (descriptionField) descriptionField.value = '';
 }
 
 // Выбор опции поддержки
@@ -288,21 +318,22 @@ document.querySelectorAll('.support-option').forEach(option => {
         const additionalFields = document.getElementById('additionalFields');
         const heroField = document.getElementById('heroField');
         const skillField = document.getElementById('skillField');
+        const descriptionField = document.getElementById('descriptionField');
         
-        additionalFields.style.display = 'block';
+        if (additionalFields) additionalFields.style.display = 'block';
         
         if (problem === 'missing_skill') {
-            heroField.style.display = 'block';
-            skillField.style.display = 'block';
-            document.getElementById('descriptionField').style.display = 'block';
+            if (heroField) heroField.style.display = 'block';
+            if (skillField) skillField.style.display = 'block';
+            if (descriptionField) descriptionField.style.display = 'block';
         } else if (problem === 'wrong_build' || problem === 'missing_hero') {
-            heroField.style.display = 'block';
-            skillField.style.display = 'none';
-            document.getElementById('descriptionField').style.display = 'block';
+            if (heroField) heroField.style.display = 'block';
+            if (skillField) skillField.style.display = 'none';
+            if (descriptionField) descriptionField.style.display = 'block';
         } else {
-            heroField.style.display = 'none';
-            skillField.style.display = 'none';
-            document.getElementById('descriptionField').style.display = 'block';
+            if (heroField) heroField.style.display = 'none';
+            if (skillField) skillField.style.display = 'none';
+            if (descriptionField) descriptionField.style.display = 'block';
         }
     });
 });
@@ -318,9 +349,9 @@ if (submitSupport) {
         }
         
         const problem = selectedOption.dataset.problem;
-        const hero = document.getElementById('heroField').value;
-        const skill = document.getElementById('skillField').value;
-        const description = document.getElementById('descriptionField').value;
+        const hero = document.getElementById('heroField') ? document.getElementById('heroField').value : '';
+        const skill = document.getElementById('skillField') ? document.getElementById('skillField').value : '';
+        const description = document.getElementById('descriptionField') ? document.getElementById('descriptionField').value : '';
         
         if (!description) {
             showToast('Опишите проблему');
@@ -331,7 +362,7 @@ if (submitSupport) {
             submitSupportTicket(problem, hero, skill, description);
         } else {
             showToast('Спасибо за обращение!');
-            supportModal.classList.remove('active');
+            if (supportModal) supportModal.classList.remove('active');
             resetSupportModal();
         }
     });
@@ -340,9 +371,11 @@ if (submitSupport) {
 // Уведомления
 function showToast(message) {
     const toast = document.getElementById('toast');
-    toast.textContent = message;
-    toast.classList.add('show');
-    setTimeout(() => {
-        toast.classList.remove('show');
-    }, 3000);
+    if (toast) {
+        toast.textContent = message;
+        toast.classList.add('show');
+        setTimeout(function() {
+            toast.classList.remove('show');
+        }, 3000);
+    }
 }
