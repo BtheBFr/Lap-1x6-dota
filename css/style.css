@@ -783,40 +783,36 @@ body {
 .hero-card {
     background: var(--bg-secondary);
     border-radius: var(--border-radius);
-    padding: 15px 10px;
+    padding: 15px 5px;        /* уменьшил боковые отступы */
     text-align: center;
     cursor: pointer;
     transition: var(--transition);
     border: 2px solid transparent;
     width: 100%;
-    max-width: 150px;
+    max-width: 140px;         /* чуть меньше */
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-    align-items: center;      /* центрируем по горизонтали */
-    justify-content: center;  /* центрируем по вертикали */
+    align-items: center;
+    justify-content: center;
     overflow: hidden;
     box-sizing: border-box;
 }
 
 .hero-icon {
-    width: 90px;
-    height: 90px;
+    width: 75px;              /* уменьшил с 90px до 75px */
+    height: 75px;             /* уменьшил с 90px до 75px */
     border-radius: 50%;
-    margin: 0 auto 10px;      /* auto слева и справа центрирует */
+    margin: 0 auto 8px;       /* auto центрирует */
     object-fit: cover;
     border: 3px solid var(--bg-tertiary);
     transition: var(--transition);
     display: block;
     aspect-ratio: 1 / 1;
-    /* Добавьте это для надежности */
-    position: relative;
-    left: 0;
-    right: 0;
 }
 
 .hero-name {
-    font-size: 16px;
+    font-size: 15px;          /* чуть меньше */
     font-weight: 500;
     color: var(--text-primary);
     text-align: center;
@@ -826,10 +822,21 @@ body {
     white-space: nowrap;
     font-family: 'Segoe UI', 'Arial', sans-serif;
     text-decoration: none;
-    letter-spacing: 0.3px;
-    /* Добавьте это */
-    margin: 0 auto;
-    text-align: center;
+    padding: 0 5px;           /* добавил отступы */
+}
+
+@media (max-width: 768px) {
+    .hero-icon {
+        width: 65px;          /* меньше на мобильных */
+        height: 65px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-icon {
+        width: 55px;          /* еще меньше */
+        height: 55px;
+    }
 }
 
 /* Адаптация для мобильных */
