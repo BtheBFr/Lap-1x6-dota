@@ -42,7 +42,7 @@ const siteConfig = {
                 "r": {
                     name: "Reincarnation",
                     icon: "icons/skills/wraith_king/reincarnation.png",
-                    description: "",
+                    description: "После смерти тело героя вновь собирается воедино, и он воскрешается на поле боя. Замедляет всех врагов в радиусе 900.",
                     build: "icons/builds/wraith_king/wraith_king_reincarnation.jpg"
                 }
             }
