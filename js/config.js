@@ -7,19 +7,25 @@ const siteConfig = {
     title: "Lap 1x6 Dota",
     subtitle: "от Lap.comp и B the B",
     
-    // Герои
+    // ============================================
+    // ГЕРОИ - добавляйте новых сюда
+    // ============================================
     heroes: {
-        "luna": {
-            name: "Luna",           // английское имя
-            nameRu: "Луна",          // русское имя (для поиска героев)
-            icon: "icons/heroes/luna.png",
+        // -------------------------------------------------
+        // LUNA (пример)
+        // -------------------------------------------------
+        "luna": {                          // название папки с файлами
+            name: "Luna",                   // английское имя
+            nameRu: "Луна",                  // русское имя (для поиска)
+            icon: "icons/heroes/luna.png",   // путь к иконке героя (100x100)
             
+            // Скиллы героя (q,w,e,r,d,f)
             skills: {
-                "q": {
-                    name: "Lucent Beam",
-                    icon: "icons/skills/luna/lucent_beam.png",
+                "q": {                       // клавиша Q
+                    name: "Lucent Beam",      // название скилла
+                    icon: "icons/skills/luna/lucent_beam.png",  // иконка скилла (64x64)
                     description: "Наносит магический урон одной цели. Можно улучшить талантом на перезарядку.",
-                    build: "builds/luna/lucent_beam.jpg"
+                    build: "builds/luna/lucent_beam.jpg"        // скриншот сборки (любой размер)
                 },
                 "w": {
                     name: "Moon Glaive",
@@ -54,6 +60,9 @@ const siteConfig = {
             }
         },
         
+        // -------------------------------------------------
+        // PUDGE (пример)
+        // -------------------------------------------------
         "pudge": {
             name: "Pudge",
             nameRu: "Пудж",
@@ -86,21 +95,59 @@ const siteConfig = {
                 }
             }
         }
+        
+        // ============================================
+        // КАК ДОБАВИТЬ НОВОГО ГЕРОЯ:
+        // ============================================
+        // 1. Создаете папку с именем героя в icons/heroes/ (фото 100x100)
+        // 2. Создаете папку с именем героя в icons/skills/ (иконки скиллов 64x64)
+        // 3. Создаете папку с именем героя в builds/ (скриншоты)
+        // 4. Копируете этот блок и вставляете сюда (перед последней скобкой)
+        /*
+        "имя_папки": {
+            name: "Name",
+            nameRu: "Имя по-русски",
+            icon: "icons/heroes/имя_папки.png",
+            skills: {
+                "q": {
+                    name: "Skill Q Name",
+                    icon: "icons/skills/имя_папки/skill_q.png",
+                    description: "Описание скилла Q",
+                    build: "builds/имя_папки/skill_q.jpg"
+                },
+                "w": {
+                    name: "Skill W Name",
+                    icon: "icons/skills/имя_папки/skill_w.png",
+                    description: "Описание скилла W",
+                    build: "builds/имя_папки/skill_w.jpg"
+                },
+                "e": {
+                    name: "Skill E Name",
+                    icon: "icons/skills/имя_папки/skill_e.png",
+                    description: "Описание скилла E",
+                    build: "builds/имя_папки/skill_e.jpg"
+                },
+                "r": {
+                    name: "Skill R Name",
+                    icon: "icons/skills/имя_папки/skill_r.png",
+                    description: "Описание скилла R",
+                    build: "builds/имя_папки/skill_r.jpg"
+                },
+                "d": {
+                    name: "Skill D Name",
+                    icon: "icons/skills/имя_папки/skill_d.png",
+                    description: "Описание скилла D (если есть)",
+                    build: "builds/имя_папки/skill_d.jpg"
+                },
+                "f": {
+                    name: "Skill F Name",
+                    icon: "icons/skills/имя_папки/skill_f.png",
+                    description: "Описание скилла F (если есть)",
+                    build: "builds/имя_папки/skill_f.jpg"
+                }
+            }
+        },
+        */
+        // ============ КОНЕЦ ДОБАВЛЕНИЯ ============
     }
 };
-
-// Для добавления нового героя просто копируете блок:
-// "имя_папки": {
-//     name: "Name",
-//     nameRu: "Имя",
-//     icon: "icons/heroes/имя_папки.png",
-//     skills: {
-//         "q": {
-//             name: "Skill Q Name",
-//             icon: "icons/skills/имя_папки/skill_q.png",
-//             description: "Описание скилла",
-//             build: "builds/имя_папки/skill_q.jpg"
-//         },
-//         и так для w,e,r,d,f
-//     }
-// }
