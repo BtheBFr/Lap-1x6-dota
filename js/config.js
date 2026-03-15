@@ -144,7 +144,7 @@ const siteConfig = {
                 "w": {
                     name: "Brain Sap",
                     icon: "icons/skills/bane/brain_sap.png",
-                    description: "",
+                    description: "Высасывает жизненную энергию врага, нанося урон ему и противникам неподалёку. Нанесенный урон основной цели восстанавливает здоровье герою.",
                     build: "icons/builds/bane/bane_brain_sap.jpg"
                 },
                 "e": {
