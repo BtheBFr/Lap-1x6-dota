@@ -190,10 +190,10 @@ const siteConfig = {
                     build: "icons/builds/bane/bane_nightmare.jpg"
                 },
                 "r": {
-                    name: "Thundergod's Wrath",
-                    icon: "icons/skills/zeus/thundergods_wrath.png",
-                    description: "Поражает всех вражеских врагов молнией вне зависимости от их местоположения, нанося магический урон. Способность также раскрывает невидимость вражеских существ вокруг каждого поражённого противника. Если герой врага невидим, то он не получит урона, но невидимость всё равно раскроется. Наносит только 60% урона целям на расстоянии большем чем 2500. Наносит урон крипам в радиусе 1500.",
-                    build: "icons/builds/zeus/zeus_thundergods_wrath.jpg"
+                    name: "Fiend's Grip",
+                    icon: "icons/skills/bane/fiends_grip.png",
+                    description: "ПРЕРЫВАЕМАЯ - захватывает врага, оглушая его и нанося большой периодический урон. Также жертва теряет долю от максимального запаса маны, передавая её владельцу способности.",
+                    build: "icons/builds/bane/bane_fiends_grip.jpg"
                 }
             }
         }, 
