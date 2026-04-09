@@ -48,6 +48,42 @@ const siteConfig = {
             }
         }, 
         // -------------------------------------------------
+        // BROODMOTHER
+        // -------------------------------------------------
+        "broodmother": {
+            name: "Broodmother",
+            nameRu: "бруда, брудмазер, бруд, брудмазер, брудма",
+            attribute: "agility",
+            icon: "icons/heroes/wraith_king.png",
+            
+            skills: {
+                "q": {
+                    name: "Wraithfire Blast",
+                    icon: "icons/skills/wraith_king/wraithfire_blast.png",
+                    description: "Герой опаляет цель призрачным огнём, оглушая её и нанося ей урон. После оглушения цель будет получать периодический урон и замедлится. Срабатывает на всех противников в радиусе 250. Наносит крипам на 30% больше урона.",
+                    build: "icons/builds/wraith_king/wraith_king_wraithfire_blast.jpg"
+                },
+                "w": {
+                    name: "Bone Guard",
+                    icon: "icons/skills/wraith_king/bone_guard.png",
+                    description: "Способность получает один заряд за каждых двух существ, убитых её владельцем. Убийство героя дает макс. зарядов. Применение способности расходует все заряды и призывает скелетов, которые возрождаются один раз. Скелеты получают вампиризм от Vampiric Spirit. Способность можно переключить, чтобы приказать скелетам не атаковать и следовать за вами.",
+                    build: "icons/builds/wraith_king/wraith_king_bone_guard.jpg"
+                },
+                "e": {
+                    name: "Mortal Strike",
+                    icon: "icons/skills/wraith_king/mortal_strike.png",
+                    description: "Герой наносит атакой дополнительный урон. Способность имеет перезарядку. Также, пассивно дает атакам прорубающий урон.",
+                    build: "icons/builds/wraith_king/wraith_king_mortal_strike.jpg"
+                },
+                "r": {
+                    name: "Reincarnation",
+                    icon: "icons/skills/wraith_king/reincarnation.png",
+                    description: "После смерти тело героя вновь собирается воедино, и он воскрешается на поле боя. Замедляет всех врагов в радиусе 900.",
+                    build: "icons/builds/wraith_king/wraith_king_reincarnation.jpg"
+                }
+            }
+        }, 
+        // -------------------------------------------------
         // TINKER 
         // -------------------------------------------------
         "tinker": {
