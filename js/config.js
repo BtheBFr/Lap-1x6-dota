@@ -54,7 +54,7 @@ const siteConfig = {
             name: "Broodmother",
             nameRu: "бруда, брудмазер, бруд, брудмазер, брудма",
             attribute: "agility",
-            icon: "icons/heroes/wraith_king.png",
+            icon: "icons/heroes/broodmother.png",
             
             skills: {
                 "q": {
@@ -184,10 +184,10 @@ const siteConfig = {
                     build: "icons/builds/bane/bane_brain_sap.jpg"
                 },
                 "e": {
-                    name: "Heavenly Jump",
-                    icon: "icons/skills/zeus/heavenly_jump.png",
-                    description: "Герой совершает божественный прыжок и бьёт током 3 ближайших противников, нанеся им урон и замедлив передвижение и атаку. Способность на 3 сек даёт беспрепятственный обзор в радиусе 900 вокруг владельца.",
-                    build: "icons/builds/zeus/zeus_heavenly_jump.jpg"
+                    name: "Nightmare",
+                    icon: "icons/skills/bane/nightmare.png",
+                    description: "Погружает союзника или противника в сон на 2 / 2.5 / 3 / 3.5 сек. Если целью стал противник, сон снижает его обзор и заканчивается при получении определённого количества урона, не считая урон Enfeeble. Если целью стал союзник, сон дает неуязвимость на 1 сек, но заканчивается от любого урона. При попытке атаковать союзника, сон передается атакующему. Вы можете прервать сон союзника повторным нажатием. Пока способонсть активна, вы не можете наносить урон настройкам.",
+                    build: "icons/builds/bane/bane_nightmare.jpg"
                 },
                 "r": {
                     name: "Thundergod's Wrath",
